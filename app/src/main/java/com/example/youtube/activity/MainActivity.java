@@ -24,7 +24,6 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity{
 
     private ActivityMainBinding binding;
-    private final static String GOOGLE_API_KEY = "AIzaSyBC0PdaLsaVd5lOtlpPkpnLAwsqGB0llJw";
 
     private List<Video>  videos = new ArrayList<>();
     private AdapterVideo adapterVideo;
