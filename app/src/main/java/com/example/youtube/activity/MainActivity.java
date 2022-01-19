@@ -5,6 +5,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 
 import com.example.youtube.R;
@@ -12,6 +15,7 @@ import com.example.youtube.adapter.AdapterVideo;
 import com.example.youtube.databinding.ActivityMainBinding;
 import com.example.youtube.model.Video;
 import com.google.android.youtube.player.YouTubeBaseActivity;
+import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +35,16 @@ public class MainActivity extends AppCompatActivity{
         setContentView(R.layout.activity_main);
 
         initialSettings();
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        MenuItem item = menu.findItem(R.id.menu_search);
+        binding.includeToolbar.searchView.setMenuItem(item);
+
+        return true;
     }
 
     private void initialSettings(){
@@ -40,6 +53,7 @@ public class MainActivity extends AppCompatActivity{
 
         toolbarSettings();
         recyclerVideoSettings();
+        searchViewSettings();
     }
 
     private void toolbarSettings(){
@@ -55,9 +69,30 @@ public class MainActivity extends AppCompatActivity{
         binding.recyclerVideo.setAdapter(adapterVideo);
     }
 
-    private void recoverVideo(){
-        Video video = new Video();
-        video.setTitle("happy");
-        videos.add(video);
+    private void searchViewSettings(){
+
+        binding.includeToolbar.searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+
+        binding.includeToolbar.searchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
+            @Override
+            public void onSearchViewShown() {
+
+            }
+
+            @Override
+            public void onSearchViewClosed() {
+
+            }
+        });
     }
 }
